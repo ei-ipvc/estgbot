@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleDetection": "force",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "target": "es2020",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "strict": true,
+  },
+  "exclude": [
+    "**/*.ts.tmp",
+    "node_modules",
+  ],
+  "typeRoots": [
+    "./node_modules/@types"
+  ]
+}
