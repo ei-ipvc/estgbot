@@ -1,0 +1,29 @@
+/**
+ * @Matt: Deprecated cuz the API is dead
+ */
+
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import { defaultColor } from '../../global'
+
+const embed = new EmbedBuilder().setColor(defaultColor).setTitle('Dad Jokes')
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('dadjoke')
+    .setDescription('Envia uma dad joke'),
+  async execute(interaction: {
+    reply: (arg0: { embeds: EmbedBuilder[] }) => void
+  }) {
+    const data = await fetch(
+      'https://jokes.guyliangilsing.me/retrieveJokes.php?type=dadjoke',
+    )
+    const joke = await data.json()
+
+    embed.addFields({
+      name: 'Joke',
+      value: joke.joke,
+    })
+
+    interaction.reply({ embeds: [embed] })
+  },
+}

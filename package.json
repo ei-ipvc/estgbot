@@ -1,0 +1,23 @@
+{
+  "name": "estgbot",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^9.5.0",
+    "cheerio": "^1.0.0-rc.12",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "node-cron": "^3.0.3",
+    "undici-types": "^6.13.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/node": "^20.12.7",
+    "@types/node-cron": "^3.0.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "deploy-cmds": "tsc && ts-node deploy-cmds",
+    "start": "tsc && node dist/index.js"
+  }
+}
