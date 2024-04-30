@@ -35,14 +35,17 @@ const getTeachersEmails = async () => {
 
   return teachers
 }
-export const getMailByTeacherName = async (fullName: string) => {
+function normalize(str: string) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+const getMailByTeacherName = async (fullName: string) => {
   const teachers = await getTeachersEmails()
   const nameTokens = fullName.toLowerCase().split(' ')
 
   return teachers
     .filter(({ fullName: teacherFullName }) =>
       nameTokens.every((nameInputToken) =>
-        teacherFullName.toLowerCase().includes(nameInputToken),
+        normalize(teacherFullName).toLowerCase().includes(nameInputToken),
       ),
     )
     .slice(0, 10)
