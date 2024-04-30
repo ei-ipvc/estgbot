@@ -26,11 +26,6 @@ const getTeachersEmails = async () => {
       .attr('href')
       ?.replace('mailto:', '')
 
-    if (email && email.includes('estg')) {
-      // @Matt: dunno bout @estg.ipvc.pt email lore, but I'm assuming it just redirects to the @ipvc.pt one
-      return
-    }
-
     teachers.push({
       fullName: $(el).find('.link-005-item-title').text(),
       role: $(el).find('.link-005-item-subtitle').text(),
