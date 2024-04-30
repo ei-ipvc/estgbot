@@ -11,7 +11,6 @@ const getEmailsWebsite = async () => {
 }
 interface Teacher {
   fullName: string
-  role: string
   email?: string
 }
 const getTeachersEmails = async () => {
@@ -21,15 +20,19 @@ const getTeachersEmails = async () => {
   const teachers: Teacher[] = []
 
   $('.link-005').each((_, el) => {
-    const email = $(el)
-      .find('.link-005-email a')
-      .attr('href')
-      ?.replace('mailto:', '')
+    const fullName = $(el).find('.link-005-item-title').text(),
+      email = $(el)
+        .find('.link-005-email a')
+        .attr('href')
+        ?.replace('mailto:', '')
+
+    if (teachers.some((teacher) => teacher.fullName === fullName)) {
+      return
+    }
 
     teachers.push({
-      fullName: $(el).find('.link-005-item-title').text(),
-      role: $(el).find('.link-005-item-subtitle').text(),
-      email: email,
+      fullName,
+      email,
     })
   })
 
