@@ -24,13 +24,6 @@ export const getHoroscope = async (
     text: text,
   }
 }
-const embed = new EmbedBuilder()
-  .setAuthor({
-    name: 'Maya',
-    iconURL:
-      'https://cdn.discordapp.com/app-assets/1230618188727849141/1232026317441073183.png',
-  })
-  .setColor(defaultColor)
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -66,13 +59,22 @@ module.exports = {
         embeds: [],
       })
 
-    embed.addFields({
-      name: 'Previsão',
-      value: prediction.text,
-    })
-    embed.setTitle(
-      `Horóscopo de ${sign.substring(0, 1).toUpperCase() + sign.substring(1)}`,
-    )
+    const embed = new EmbedBuilder()
+      .setColor(defaultColor)
+      .setAuthor({
+        name: 'Maya',
+        iconURL:
+          'https://cdn.discordapp.com/app-assets/1230618188727849141/1232026317441073183.png',
+      })
+      .setTitle(
+        `Horóscopo de ${
+          sign.substring(0, 1).toUpperCase() + sign.substring(1)
+        }`,
+      )
+      .addFields({
+        name: 'Previsão',
+        value: prediction.text,
+      })
 
     interaction.reply({
       content: '',
