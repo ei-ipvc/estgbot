@@ -89,7 +89,6 @@ module.exports = {
       fullName: string
       email: string
     }[]
-
     if (emails.length) {
       emails.map(({ fullName, email }) => {
         embed.addFields({
@@ -100,22 +99,24 @@ module.exports = {
       await interaction.editReply({ content: '', embeds: [embed] })
     }
 
-    // reset fields & we're going to cross-check emails with the website
-    embed.data.fields = []
-
+    // cross-check emails with the website
     const teachers = await getMailByTeacherName(searchName)
-    teachers.map(({ fullName, email }) => {
-      db.prepare(
-        'INSERT OR IGNORE INTO mails (fullName, email) VALUES (?, ?)',
-      ).run(fullName, email)
+    if (teachers.length) {
+      embed.data.fields = []
 
-      embed.addFields({
-        name: fullName,
-        value: email || 'Email não encontrado',
+      teachers.map(({ fullName, email }) => {
+        db.prepare(
+          'INSERT OR IGNORE INTO mails (fullName, email) VALUES (?, ?)',
+        ).run(fullName, email)
+
+        embed.addFields({
+          name: fullName,
+          value: email || 'Email não encontrado',
+        })
       })
-    })
+    }
 
-    if (!teachers.length)
+    if (!emails.length && !teachers.length)
       embed.setDescription(
         'Não foi possível encontrar o docente que procuras <:sadge:1232239200615665726>',
       )
