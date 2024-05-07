@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('horario')
     .setDescription(
-      'Mostra o horário das tuas aulas de hoje/amanhã baseado nas tuas roles',
+      'Mostra o horário das tuas aulas de hoje ou dia específico baseado nas tuas roles',
     ),
   async execute(interaction: {
     reply: (arg0: string) => any
