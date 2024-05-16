@@ -43,7 +43,7 @@ function normalize(str: string) {
 }
 const getMailByTeacherName = async (fullName: string) => {
   const teachers = await getTeachersEmails()
-  const nameTokens = fullName.toLowerCase().split(' ')
+  const nameTokens = normalize(fullName).toLowerCase().split(' ')
 
   return teachers
     .filter(({ fullName: teacherFullName }) =>
