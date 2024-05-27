@@ -1,9 +1,10 @@
-import { Client, GuildMember, TextChannel } from 'discord.js'
+import { Events, GuildMember, TextChannel } from 'discord.js'
+import { client } from '../index'
 import { pogEmoji, updtMemberCountActivity } from '../global'
 
 module.exports = {
-  name: 'guildMemberAdd',
-  async execute(client: Client, member: GuildMember) {
+  name: Events.GuildMemberAdd,
+  async execute(member: GuildMember) {
     if (member.user.bot) return
 
     const channel = member.guild.channels.cache.find((ch) =>

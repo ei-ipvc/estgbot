@@ -14,9 +14,11 @@ interface CustomClient extends Client {
 }
 const client = new Client({
   intents: [
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildPresences,
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
   ],
 }) as CustomClient
 
@@ -75,4 +77,4 @@ for (const file of taskFiles) {
 
 client.login(process.env.TOKEN)
 
-export { db }
+export { client, db }
