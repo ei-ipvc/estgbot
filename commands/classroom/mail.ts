@@ -67,14 +67,16 @@ module.exports = {
         .setRequired(true),
     ),
   async execute(interaction: {
-    reply: (arg0: string) => any
     options: { get: (arg0: string) => { value: any } }
+
+    deferReply: () => any
     editReply: (arg0: { content: string; embeds: EmbedBuilder[] }) => any
+    reply: (arg0: string) => any
   }) {
     const embed = new EmbedBuilder().setColor(defaultColor).setTitle('Emails')
 
     const searchName = interaction.options.get('nome').value
-    await interaction.reply('A procurar...')
+    await interaction.deferReply()
 
     const words = searchName.split(' ')
     let query = 'SELECT * FROM mails WHERE 1=1'
