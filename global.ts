@@ -2,8 +2,7 @@ import { ActivityType, Client, ColorResolvable } from 'discord.js'
 require('dotenv').config()
 
 // embeds
-const defaultColor = '#2d79c7' as ColorResolvable,
-  empty = '_ _'
+const defaultColor = '#2d79c7' as ColorResolvable
 
 // fun
 const pea = [
@@ -12,6 +11,7 @@ const pea = [
 ] as string[]
 const pogEmoji = () => pea[Math.floor(Math.random() * pea.length)]
 
+// activity
 const updtMemberCountActivity = (client: Client) => {
   const guild = client.guilds.cache.get(process.env.SERVERID as string)
   client.user?.setPresence({
@@ -24,4 +24,4 @@ const updtMemberCountActivity = (client: Client) => {
   })
 }
 
-export { defaultColor, empty, pogEmoji, updtMemberCountActivity }
+export { defaultColor, pogEmoji, updtMemberCountActivity }
