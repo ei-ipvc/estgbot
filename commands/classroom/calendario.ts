@@ -5,6 +5,9 @@ import IPVCCalendar from '../../assets/ipvc-calendar.json'
 const embed = new EmbedBuilder()
   .setColor(defaultColor)
   .setTitle('📅 Calendário')
+  .setFooter({
+    text: `⚠️ Se encontrares algum erro, avisa a moderação! ⚠️ | 📅 Atualizado em 17/08/2024 📅`,
+  })
 
 const normalize = (text: string) =>
   text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
@@ -29,6 +32,11 @@ IPVCCalendar.half.forEach((half) => {
       return current
     }),
   })
+})
+
+embed.addFields({
+  name: '*------------------*',
+  value: '🔗 [Documento Oficial](https://www.ipvc.pt/wp-content/uploads/2024/03/Calendario-Escolar-2024-25.pdf) 🔗',
 })
 
 module.exports = {
