@@ -79,20 +79,24 @@ module.exports = {
     await interaction.deferReply()
 
     const words = searchName.split(' ')
+
     let query = 'SELECT * FROM mails WHERE 1=1'
-    const params = []
-    for (let i = 0; i < words.length; i++) {
-      query += ` AND fullName LIKE ?`
-      params.push(`%${words[i]}%`)
-    }
+    const params: string[] = []
+
+    words.forEach((word: string) => {
+      query += ' AND fullName LIKE ? COLLATE NOCASE'
+      params.push(`%${word}%`)
+    })
+
     query += ' ORDER BY fullName ASC LIMIT 10'
 
     const emails = db.prepare(query).all(params) as {
       fullName: string
       email: string
     }[]
+
     if (emails.length) {
-      emails.map(({ fullName, email }) => {
+      emails.forEach(({ fullName, email }) => {
         embed.addFields({
           name: fullName,
           value: email,
