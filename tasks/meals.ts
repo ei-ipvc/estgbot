@@ -1,11 +1,122 @@
-import { EmbedBuilder, TextChannel } from 'discord.js'
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  TextChannel,
+} from 'discord.js'
 import { defaultColor } from '../global.js'
 import * as cron from 'node-cron'
 import { client } from '../index'
 
+interface Meal {
+  code: string
+  translations: { name: string }[]
+  prices: { description: string; price: number }[]
+}
+interface MealData {
+  data: Meal[]
+}
+let lunchMeals: (string | number)[][] = []
+let dinnerMeals: (string | number)[][] = []
+const processMeals = (mealData: MealData): (string | number)[][] => {
+  return mealData.data
+    .filter((meal) => meal.code.startsWith('PD_'))
+    .map((meal) => {
+      let mealType = meal.code.charAt(3) + meal.code.slice(4).toLowerCase(),
+        mealTypeEN = ''
+
+      switch (mealType) {
+        case 'Carne':
+          mealTypeEN = 'Meat'
+          break
+        case 'Peixe':
+          mealTypeEN = 'Fish'
+          break
+        case 'Vege':
+          mealType = 'Vegetariano'
+          mealTypeEN = 'Vegetarian'
+          break
+      }
+
+      const price = meal.prices.find(
+        (price) => price.description === 'Preço Aluno',
+      )!.price
+
+      return [
+        mealType,
+        mealTypeEN,
+        price,
+        meal.translations[0].name,
+        meal.translations[1].name,
+      ]
+    })
+    .sort()
+}
+const formatMeals = (
+  meals: (string | number)[][],
+  english: Boolean = false,
+) => {
+  if (english)
+    return meals
+      .map((prop) => `**${prop[1]} — ${prop[2]}€**\n${prop[4]}`)
+      .join('\n\n')
+  else
+    return meals
+      .map((prop) => `**${prop[0]} — ${prop[2]}€**\n${prop[3]}`)
+      .join('\n\n')
+}
+
+const btn = new ButtonBuilder()
+    .setCustomId('english')
+    .setLabel('English')
+    .setStyle(ButtonStyle.Secondary)
+    .setEmoji('<:flagUS:1297497526282358815>'),
+  disabledBtn = new ButtonBuilder()
+    .setCustomId('disabledEN')
+    .setDisabled(true)
+    .setLabel('English')
+    .setStyle(ButtonStyle.Secondary)
+    .setEmoji('<:flagUS:1297497526282358815>')
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isButton()) return
+
+  if (interaction.customId === 'english') {
+    const today = new Date(),
+      tmrw = today.getDate() + 1,
+      currentMonth = today.getMonth() + 1
+
+    const embed = new EmbedBuilder()
+      .setColor(defaultColor)
+      .setAuthor({
+        name: 'SASocial - IPVC (ESTG)',
+        iconURL: 'https://sasocial.sas.ipvc.pt/favicon.ico',
+      })
+      .setTitle(`**Tomorrow (${tmrw}/${currentMonth})**`)
+      .addFields({
+        name: '🍴 Lunch',
+        value: formatMeals(lunchMeals, true),
+      })
+      .addFields({
+        name: '_ _',
+        value: '_ _',
+      })
+      .addFields({
+        name: '🍴 Dinner',
+        value: formatMeals(dinnerMeals, true),
+      })
+
+    embed.setFooter({
+      text: "⚠️ English translation is provided by SASocial's API",
+    })
+
+    await interaction.reply({ embeds: [embed], ephemeral: true })
+  }
+})
+
 module.exports = {
   execute() {
-    cron.schedule('30 20 * * 0,1,2,3,4', async () => {
+    cron.schedule('* * * * *', async () => {
       const req = await fetch(
           'https://sasocial.sas.ipvc.pt/api/authorization/authorize/device-type/WEB',
           {
@@ -38,38 +149,21 @@ module.exports = {
       const lunchData = await lunch.json(),
         dinnerData = await dinner.json()
 
-      interface Meal {
-        code: string
-        translations: { name: string }[]
-        prices: { description: string; price: number }[]
-      }
-      interface MealData {
-        data: Meal[]
-      }
+      lunchMeals = processMeals(lunchData)
+      dinnerMeals = processMeals(dinnerData)
 
-      const processMeals = (mealData: MealData): (string | number)[][] => {
-        return mealData.data
-          .filter((meal) => meal.code.startsWith('PD_'))
-          .map((meal) => {
-            let mealType =
-              meal.code.charAt(3) + meal.code.slice(4).toLowerCase()
-            if (mealType === 'Vege') mealType = 'Vegetariano'
-
-            const price = meal.prices.find(
-              (price) => price.description === 'Preço Aluno',
-            )!.price
-            return [mealType, price, meal.translations[0].name]
-          })
-          .sort()
-      }
-
-      const lunchMeals = processMeals(lunchData),
-        dinnerMeals = processMeals(dinnerData)
-
-      const formatMeals = (meals: (string | number)[][]) =>
-        meals
-          .map((prop) => `**${prop[0]} — ${prop[1]}€**\n${prop[2]}`)
-          .join('\n\n')
+      const guild = await client.guilds.fetch(process.env.SERVERID as string),
+        channel = guild.channels.cache.find((ch) =>
+          ch.name.includes('ementas'),
+        ) as TextChannel
+      const messages = await channel.messages.fetch({ limit: 32 })
+      const oldMsg = messages.find((msg) => msg.author.id === client.user?.id)
+      if (oldMsg)
+        oldMsg.edit({
+          components: [
+            new ActionRowBuilder<ButtonBuilder>().addComponents(disabledBtn),
+          ],
+        })
 
       const embed = new EmbedBuilder()
         .setColor(defaultColor)
@@ -90,12 +184,10 @@ module.exports = {
           name: '🍴 Jantar',
           value: formatMeals(dinnerMeals),
         })
-
-      const guild = await client.guilds.fetch(process.env.SERVERID as string),
-        channel = guild.channels.cache.find((ch) =>
-          ch.name.includes('ementas'),
-        ) as TextChannel
-      channel.send({ embeds: [embed] })
+      await channel.send({
+        components: [new ActionRowBuilder<ButtonBuilder>().addComponents(btn)],
+        embeds: [embed],
+      })
     })
   },
 }
