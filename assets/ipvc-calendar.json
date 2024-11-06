@@ -39,11 +39,6 @@
           "type": "natal",
           "begin": "23/12/2024",
           "end": "04/01/2025"
-        },
-        {
-          "type": "carnaval",
-          "begin": "03/03/2025",
-          "end": "04/03/2025"
         }
       ],
       "holydays": [
@@ -70,6 +65,11 @@
       "begin": "17/02/2025",
       "end": "19/07/2025",
       "interruptions": [
+        {
+          "type": "carnaval",
+          "begin": "03/03/2025",
+          "end": "04/03/2025"
+        },
         {
           "type": "páscoa",
           "begin": "14/04/2025",
