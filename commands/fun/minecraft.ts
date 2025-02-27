@@ -85,20 +85,25 @@ interface OfflineMinecraftServerStatus {
   debug: ServerDebugInfo
 }
 
-type MinecraftServerStatus = OnlineMinecraftServerStatus | OfflineMinecraftServerStatus
+type MinecraftServerStatus =
+  | OnlineMinecraftServerStatus
+  | OfflineMinecraftServerStatus
 
-export const getMinecraftServerStatus = async (): Promise<MinecraftServerStatus> => {
-  const url = `https://api.mcsrvstat.us/3/minecraft.capaz.dev`
+export const getMinecraftServerStatus =
+  async (): Promise<MinecraftServerStatus> => {
+    const url = `https://api.mcsrvstat.us/3/minecraft.capaz.dev`
 
-  const response = await fetch(url)
-  return await response.json()
-}
+    const response = await fetch(url)
+    return await response.json()
+  }
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('minecraft')
     .setDescription('Verificar estado do servidor de minecraft'),
-  async execute(interaction: { reply: (arg0: { embeds: EmbedBuilder[] }) => void }) {
+  async execute(interaction: {
+    reply: (arg0: { embeds: EmbedBuilder[] }) => void
+  }) {
     const server = await getMinecraftServerStatus()
 
     const embed = new EmbedBuilder()
@@ -115,14 +120,13 @@ module.exports = {
         },
         {
           name: `A Jogar ${server.players.online}/${server.players.max}`,
-          value: server.players.list?.map(x => x.name).join('\n') ?? ' ',
+          value: server.players.list?.map((x) => x.name).join('\n') ?? ' ',
         },
       )
-
     else
       embed.addFields({
-        name: "Servidor offline <:pepeHands:766303912696610827>",
-        value: " "
+        name: 'Servidor offline <:pepeHands:766303912696610827>',
+        value: ' ',
       })
 
     interaction.reply({ embeds: [embed] })

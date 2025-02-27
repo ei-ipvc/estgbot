@@ -15,12 +15,12 @@ module.exports = {
     content: string
     author: { bot: boolean }
     react: (arg0: string) => void
-    reply:  (options: string | MessagePayload | MessageReplyOptions) => void
+    reply: (options: string | MessagePayload | MessageReplyOptions) => void
   }) {
     if (message.author.bot) return
 
-    if (message.content.toLowerCase().includes("aserio")) {
-      message.reply("https://i.imgur.com/NjE7ZYm.png")
+    if (message.content.toLowerCase().includes('aserio')) {
+      message.reply('https://i.imgur.com/NjE7ZYm.png')
     }
 
     const content = message.content.replace(

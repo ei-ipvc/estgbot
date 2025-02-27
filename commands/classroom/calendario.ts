@@ -36,7 +36,8 @@ IPVCCalendar.half.forEach((half) => {
 
 embed.addFields({
   name: '*------------------*',
-  value: '🔗 [Documento Oficial](https://www.ipvc.pt/wp-content/uploads/2024/03/Calendario-Escolar-2024-25.pdf) 🔗',
+  value:
+    '🔗 [Documento Oficial](https://www.ipvc.pt/wp-content/uploads/2024/03/Calendario-Escolar-2024-25.pdf) 🔗',
 })
 
 module.exports = {
