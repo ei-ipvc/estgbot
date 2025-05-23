@@ -29,7 +29,7 @@ module.exports = {
     if (message.content.toLowerCase().includes("aserio")) {
       message.reply("https://i.imgur.com/NjE7ZYm.png")
     } else if (message.content.toLowerCase().split(" ").find(x => tap_keywords.includes(x))) {
-      message.reply("<@159799471142600704>")
+      message.reply("<@261925350680821770>")
     }
 
     const content = message.content.replace(
