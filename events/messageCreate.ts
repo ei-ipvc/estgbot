@@ -9,6 +9,13 @@ const keywords = [
   'nosso lider',
 ]
 
+const tap_keywords = [
+  "tap",
+  "tap.",
+  "tap!",
+  "tap?"
+]
+
 module.exports = {
   name: Events.MessageCreate,
   execute(message: {
@@ -21,7 +28,7 @@ module.exports = {
 
     if (message.content.toLowerCase().includes("aserio")) {
       message.reply("https://i.imgur.com/NjE7ZYm.png")
-    } else if (message.content.toLowerCase().split(" ").includes("tap")) {
+    } else if (message.content.toLowerCase().split(" ").find(x => tap_keywords.includes(x))) {
       message.reply("<@159799471142600704>")
     }
 
