@@ -19,8 +19,10 @@ module.exports = {
   }) {
     if (message.author.bot) return
 
-    if (message.content.toLowerCase().includes('aserio')) {
-      message.reply('https://i.imgur.com/NjE7ZYm.png')
+    if (message.content.toLowerCase().includes("aserio")) {
+      message.reply("https://i.imgur.com/NjE7ZYm.png")
+    } else if (message.content.toLowerCase().split(" ").includes("tap")) {
+      message.reply("<@159799471142600704>")
     }
 
     const content = message.content.replace(
