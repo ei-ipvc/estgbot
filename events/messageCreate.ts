@@ -1,4 +1,5 @@
 import { Events, MessagePayload, MessageReplyOptions } from 'discord.js'
+import { fixSocialMediaURLs } from '../commands/fun/socialMediaURLs'
 
 const keywords = [
   'astronauta',
@@ -47,6 +48,11 @@ module.exports = {
       message.react('🇦')
       message.react('🇸')
       message.react('🐐')
+    }
+
+    const messageWithCleanURLs = fixSocialMediaURLs(message.content)
+    if(messageWithCleanURLs != null) {
+      message.reply(`**Mensagem com URL(s) corrigido(s):**\n\n${messageWithCleanURLs}`)
     }
   },
 }
