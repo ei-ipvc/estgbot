@@ -116,7 +116,7 @@ client.on('interactionCreate', async (interaction) => {
 
 module.exports = {
   execute() {
-    cron.schedule('* * * * *', async () => {
+    cron.schedule('30 20 * * 0,1,2,3,4', async () => {
       const req = await fetch(
           'https://sasocial.sas.ipvc.pt/api/authorization/authorize/device-type/WEB',
           {
