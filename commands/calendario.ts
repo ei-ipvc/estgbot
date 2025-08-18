@@ -41,7 +41,7 @@ IPVCCalendar.halfs.forEach((half, idx) => {
 
 embed.addFields({
   name: '\u200B',
-  value: `🔗 [Documento oficial](${IPVCCalendar.document})\n⚠️ **Datas sujeitas a alterações**!\n-# Se encontrares algum erro, avisa a <@&766292682283810826>!`,
+  value: `🔗 [Documento oficial](${IPVCCalendar.document})\n⚠️ **Datas sujeitas a alterações**!\n-# Se encontrares algum erro, avisa a <@&766292682283810826>`,
 })
 
 module.exports = {

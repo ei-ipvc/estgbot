@@ -60,7 +60,7 @@ module.exports = {
       .addFields(...fields)
       .addFields({
         name: '\u200B',
-        value: `⚠️ **Horário sujeito a alterações!**\n-# Se encontrares algum erro, avisa a <@&766292682283810826>!`,
+        value: `⚠️ **Horário sujeito a alterações!**\n-# Se encontrares algum erro, avisa a <@&766292682283810826>`,
       })
       .setFooter({ text: '📅 Atualizado no' })
       .setTimestamp(timestamp(serviceObj.updated_at))
