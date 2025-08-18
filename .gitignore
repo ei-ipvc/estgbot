@@ -1,3 +1,5 @@
 .env
+database.db
 dist
+events/automod
 node_modules
