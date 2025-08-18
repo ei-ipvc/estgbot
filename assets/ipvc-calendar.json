@@ -1,107 +1,71 @@
 {
+  "lastUpdated": "17/08/2025",
+  "document": "https://www.ipvc.pt/wp-content/uploads/2025/07/Calendario-Escolar-2025-26.pdf",
+
   "celebratoryDays": [
     {
       "campus": "IPVC",
       "date": "15/05"
     },
     {
-      "campus": "ESE",
-      "date": "09/11"
-    },
-    {
-      "campus": "ESA",
-      "date": "22/11"
-    },
-    {
       "campus": "ESTG",
       "date": "09/01"
-    },
-    {
-      "campus": "ESCE",
-      "date": "12/11"
-    },
-    {
-      "campus": "ESS",
-      "date": "16/05"
-    },
-    {
-      "campus": "ESDL",
-      "date": "03/05"
     }
   ],
-  "half": [
+
+  "halfs": [
     {
       "id": 1,
-      "begin": "16/09/2024",
-      "end": "15/02/2025",
+      "begin": "15/09/2025",
+      "end": "14/02/2026",
       "interruptions": [
         {
-          "type": "natal",
-          "begin": "23/12/2024",
-          "end": "04/01/2025"
-        },
-        {
-          "type": "carnaval",
-          "begin": "03/03/2025",
-          "end": "04/03/2025"
+          "type": "Natal",
+          "begin": "22/12/2025",
+          "end": "02/01/2026"
         }
       ],
-      "holydays": [
-        "05/10/2024",
-        "01/11/2024",
-        "01/12/2024",
-        "08/12/2024"
-      ],
+      "holidays": ["08/12/2025"],
       "exams": [
         {
-          "type": "normal",
-          "begin": "20/01/2025",
-          "end": "15/02/2025"
-        },
-        {
-          "type": "recurso",
-          "begin": "20/01/2025",
-          "end": "15/02/2025"
+          "type": "Normal / Recursos",
+          "begin": "19/01/2026",
+          "end": "14/02/2026"
         }
       ]
     },
     {
       "id": 2,
-      "begin": "17/02/2025",
-      "end": "19/07/2025",
+      "begin": "16/02/2026",
+      "end": "18/07/2026",
       "interruptions": [
         {
-          "type": "páscoa",
-          "begin": "14/04/2025",
-          "end": "21/04/2025"
+          "type": "Carnaval",
+          "begin": "16/02/2026",
+          "end": "17/03/2026"
         },
         {
-          "type": "semana académica",
-          "begin": "12/05/2025",
-          "end": "16/05/2025"
+          "type": "Páscoa",
+          "begin": "30/03/2026",
+          "end": "06/04/2026"
+        },
+        {
+          "type": "Semana Académica",
+          "begin": "16/05/2026",
+          "end": "23/05/2026"
         }
       ],
-      "holydays": [
-        "25/04/2025",
-        "01/05/2025",
-        "10/06/2025",
-        "19/06/2025"
-      ],
+      "holidays": ["01/05/2026", "04/06/2026", "10/06/2026"],
       "exams": [
         {
-          "type": "normal",
-          "begin": "23/06/2025",
-          "end": "19/07/2025"
+          "type": "Normal / Recursos",
+          "begin": "22/06/2026",
+          "end": "18/07/2026"
         },
         {
-          "type": "recurso",
-          "begin": "23/06/2025",
-          "end": "19/07/2025"
-        },
-        {
-          "type": "especial",
-          "begin": "21/07/2025",
-          "end": "31/07/2025"
+          "type": "Especial",
+          "begin": "20/07/2026",
+          "end": "31/07/2026"
         }
       ]
     }

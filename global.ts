@@ -11,6 +11,11 @@ const pea = [
 ] as string[]
 const pogEmoji = () => pea[Math.floor(Math.random() * pea.length)]
 
+function timestamp(dateStr: string): Date {
+  const [day, month, year] = dateStr.split('/').map(Number)
+  return new Date(year, month - 1, day)
+}
+
 // activity
 const updtMemberCountActivity = (client: Client) => {
   const guild = client.guilds.cache.get(process.env.SERVERID as string)
@@ -24,4 +29,4 @@ const updtMemberCountActivity = (client: Client) => {
   })
 }
 
-export { defaultColor, pogEmoji, updtMemberCountActivity }
+export { defaultColor, pogEmoji, timestamp, updtMemberCountActivity }
