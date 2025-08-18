@@ -12,8 +12,12 @@ const pea = [
 const pogEmoji = () => pea[Math.floor(Math.random() * pea.length)]
 
 function timestamp(dateStr: string): Date {
-  const [day, month, year] = dateStr.split('/').map(Number)
-  return new Date(year, month - 1, day)
+  const [datePart, timePart] = dateStr.split(' ')
+  const [day, month, year] = datePart.split('/').map(Number)
+  let hours = 0,
+    minutes = 0
+  if (timePart) [hours, minutes] = timePart.split(':').map(Number)
+  return new Date(year, month - 1, day, hours, minutes, 0, 0)
 }
 
 // activity
