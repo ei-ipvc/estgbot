@@ -2,11 +2,14 @@
   "name": "estgbot",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.11.0",
     "better-sqlite3": "^9.5.0",
     "cheerio": "^1.0.0-rc.12",
     "discord.js": "^14.15.2",
     "dotenv": "^16.4.5",
     "node-cron": "^3.0.3",
+    "sharp": "^0.34.3",
+    "sharp-phash": "^2.2.0",
     "undici-types": "^6.13.0"
   },
   "devDependencies": {
