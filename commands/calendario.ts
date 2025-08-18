@@ -2,7 +2,7 @@ import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { defaultColor, timestamp } from '../global'
 import IPVCCalendar from '../assets/ipvc-calendar.json'
 
-function dateToUnix(dateStr: string): string {
+const dateToUnix = (dateStr: string): string => {
   const [day, month, year] = dateStr.split('/').map(Number)
   const date = new Date(year, month - 1, day)
   date.setHours(date.getHours() + 18)
@@ -53,4 +53,9 @@ module.exports = {
   }) {
     interaction.reply({ embeds: [embed] })
   },
+  sendCalendarEmbed,
+}
+
+export async function sendCalendarEmbed(channel: any) {
+  await channel.send({ embeds: [embed] })
 }
