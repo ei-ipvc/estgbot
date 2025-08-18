@@ -1,10 +1,10 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { defaultColor, pogEmoji } from '../../global.js'
+import { defaultColor, pogEmoji } from '../global.js'
 
 const arrNotes = [
   `Esta pasta tornar-se-á mais útil com as vossas contribuições ${pogEmoji()}`,
   'Se possível, adiciona novo conteúdo à pasta! O povo agradece <a:aPES_Salute:1232019890119114842>',
-  'Podes observar todas as alterações feitas na pasta <#1201580569960644799> 👀',
+  // 'Podes observar todas as alterações feitas na pasta <#1201580569960644799> 👀',
 ]
 const embed = new EmbedBuilder().setColor(defaultColor).setAuthor({
   name: 'Sharepoint ESTG',

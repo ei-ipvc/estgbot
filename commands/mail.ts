@@ -1,8 +1,8 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { defaultColor } from '../../global.js'
+import { defaultColor } from '../global.js'
 import * as cheerio from 'cheerio'
 
-import { db } from '../../index'
+import { db } from '../index'
 
 const getEmailsWebsite = async () => {
   const req = await fetch('https://www.ipvc.pt/estg/a-escola/corpo-docente/')
@@ -26,10 +26,7 @@ const getTeachersEmails = async () => {
         .attr('href')
         ?.replace('mailto:', '')
 
-    if (teachers.some((teacher) => teacher.fullName === fullName)) {
-      return
-    }
-
+    if (teachers.some((teacher) => teacher.fullName === fullName)) return
     teachers.push({
       fullName,
       email,
@@ -38,9 +35,8 @@ const getTeachersEmails = async () => {
 
   return teachers
 }
-function normalize(str: string) {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-}
+const normalize = (str: string) =>
+  str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 const getMailByTeacherName = async (fullName: string) => {
   const teachers = await getTeachersEmails()
   const nameTokens = normalize(fullName).toLowerCase().split(' ')
@@ -58,7 +54,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('mail')
     .setDescription(
-      'Encontra o email de um docente da ESTG, através do seu nome',
+      'Encontra o email de um docente da ESTG através do seu nome',
     )
     .addStringOption((option) =>
       option
