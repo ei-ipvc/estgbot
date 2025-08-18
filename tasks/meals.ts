@@ -149,6 +149,9 @@ module.exports = {
       const lunchData = await lunch.json(),
         dinnerData = await dinner.json()
 
+      if (lunchData.data.length === 0 && dinnerData.data.length === 0)
+        return console.error('Failed to fetch meals data. SASocial API issue?')
+
       lunchMeals = processMeals(lunchData)
       dinnerMeals = processMeals(dinnerData)
 
