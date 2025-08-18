@@ -24,27 +24,24 @@ const client = new Client({
 
 // commands
 client.cmds = new Collection()
-const foldersPath = path.join(__dirname, 'commands')
-const cmdFolders = fs.readdirSync(foldersPath)
+const cmdsPath = path.join(__dirname, 'commands')
+
 console.log('Loading commands...')
-for (const folder of cmdFolders) {
-  console.log(`${folder}:`)
-  const cmdsPath = path.join(foldersPath, folder)
-  const cmdFiles = fs
-    .readdirSync(cmdsPath)
-    .filter((file: string) => file.endsWith('.js'))
-  for (const file of cmdFiles) {
-    const filePath = path.join(cmdsPath, file)
-    const cmd = require(filePath)
-    if ('data' in cmd && 'execute' in cmd) {
-      client.cmds.set(cmd.data.name, cmd)
-      console.log(`\t[ + ] ${cmd.data.name}`)
-    } else
-      console.error(
-        `The cmd @${filePath} is missing a required "data" or "execute" property.`,
-      )
-  }
+const cmdFiles = fs
+  .readdirSync(cmdsPath)
+  .filter((file: string) => file.endsWith('.js'))
+for (const file of cmdFiles) {
+  const filePath = path.join(cmdsPath, file)
+  const cmd = require(filePath)
+  if ('data' in cmd && 'execute' in cmd) {
+    client.cmds.set(cmd.data.name, cmd)
+    console.log(`[+] ${cmd.data.name}`)
+  } else
+    console.error(
+      `The cmd @${filePath} is missing a required "data" or "execute" property.`,
+    )
 }
+
 console.log('')
 
 // events
@@ -57,7 +54,7 @@ console.log('Loading events...')
 for (const file of evtFiles) {
   const filePath = path.join(evtsPath, file)
   const evt = require(filePath)
-  console.log(`[ + ] ${evt.name}`)
+  console.log(`[+] ${evt.name}`)
   if (evt.once) client.once(evt.name, (...args: any) => evt.execute(...args))
   else client.on(evt.name, (...args: any) => evt.execute(...args))
 }
