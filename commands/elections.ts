@@ -29,13 +29,21 @@ module.exports = {
       embeds: any[]
     }) => void
   }) {
-    const data = (await axios.post(ELECTION_DATA_URL, {
-      "electionId": 1,
-      "territoryId": "2272",
-      "organId": 4
-    })).data.data
+    let data
 
-    if(data.currentResults.votingState == "Unpublished")
+    try {
+      data = (await axios.post(ELECTION_DATA_URL, {
+        "electionId": 1,
+        "territoryId": "2272",
+        "organId": 4
+      })).data.data
+
+      if(data.currentResults.votingState == "Unpublished") data = null
+    } catch (e) {
+      data = null
+    }
+
+    if(data == null)
       return interaction.reply({
         embeds: [{
           title: "Autárquicas Beiriz 2025",
