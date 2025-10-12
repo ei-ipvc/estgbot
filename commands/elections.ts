@@ -35,7 +35,7 @@ module.exports = {
       data = (await axios.post(ELECTION_DATA_URL, {
         "electionId": 1,
         "territoryId": "2272",
-        "organId": 4
+        "organId": 6
       })).data.data
 
       if(data.currentResults.votingState == "Unpublished") data = null
